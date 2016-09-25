@@ -7,7 +7,6 @@ function root(args) {
 }
 
 module.exports = {
-  devtool: 'source-map',
   debug: true,
   entry: './client/boot.ts',
   resolve: {

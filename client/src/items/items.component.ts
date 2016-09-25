@@ -2,10 +2,14 @@ import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {ItemsService, Item} from './items.service';
 import {ItemsList} from './items-list.component';
 import {ItemDetail} from './item-detail.component';
+import {Widgets} from "../widgets/widgets";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'items',
   template: `
+  <button (click)="goToWidgets()">widgets</button>
+  <hr>
   <div class="mdl-grid items">
     <div class="mdl-cell mdl-cell--6-col">
       <items-list [items]="items"
@@ -27,13 +31,17 @@ import {ItemDetail} from './item-detail.component';
     }
   `],
   providers: [ItemsService],
-  directives: [ItemsList, ItemDetail]
+  directives: [ItemsList, ItemDetail, Widgets]
 })
 export class Items implements OnInit {
   items: Array<Item>;
   selectedItem: Item;
 
-  constructor(private itemsService: ItemsService) {}
+  constructor(private itemsService: ItemsService, private _router: Router) {}
+
+  goToWidgets() {
+    this._router.navigate(['widgets']);
+  }
 
   ngOnInit() {
     this.itemsService.loadItems()
